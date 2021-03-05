@@ -1,25 +1,29 @@
+Comando curl:
 
-1- definir estructuras de tipo:
-	- points
-	- el json que llega
-	- tipos:
-		satellites []
-		satellite : {
-			"name"		: string , //o enum o tipo con point
-			"distance"	: float64,
-			"message"	: string[] // ver esto con listas enlazadas y como manejarlo ["este", "", "", "mensaje", ""]
-		}
-		"position": {
-			"x": -100.0,
-			"y": 75.5
+	curl -X POST \
+	http://localhost:3001/topsecret \
+	-H 'cache-control: no-cache' \
+	-H 'content-type: application/json' \
+	-H 'postman-token: fc139aff-8f9b-de88-495b-165d3fb2422e' \
+	-d '{
+		"satellites": [
+		{
+			"name": "kenobi",
+			"distance": 100.0,
+			"message": ["este", "", "", "mensaje", ""]
 		},
-
-2- interfaces
-3- fc' que reciba distancia
-4- donde guardamos las 3 coordenadas? con los nombres de satelites?
-
- TODO:  RECORDAR SACAR ESTO EN PAPEL PARA EXPLICARLO
-₀₁₂₃₄₅₆₇₈₉
+		{
+			"name": "skywalker",
+			"distance": 115.5,
+			"message": ["", "es", "", "", "secreto"]
+		},
+		{
+			"name": "sato",
+			"distance": 142.7,
+			"message": ["este", "", "un", "", ""]
+		}
+		]
+	}'
 
 Demostración:
 
@@ -53,26 +57,3 @@ Demostración:
 					|	2(x₁ - x₂)	2(y₁ - y₂)	|
 					|	2(x₂ - x₃)	2(y₂ - y₃)	|
 
-	//. "github.com/brunosaldivar/mercado_pago/pkg"
-
-02-03
-1 - rellenar con lo que viene del payload las estructuras y los puntos OK
-
-2- cumplir con la firma :
-	interfaz OK
-	heredarla
-
-	if len(satellites) > 0 {
-		if satellites[0].Name == "Kenobi" {
-			satellites[0].Coord = Point{X: -500, Y: -200}
-		}
-		if satellites[1].Name == "Skywalker" {
-			satellites[1].Coord = Point{X: 100, Y: -100}
-		}
-		if satellites[2].Name == "Sato" {
-			satellites[2].Coord = Point{X: 500, Y: 100}
-		}
-		log.Println(satellites)
-	}
-
-3- el programa que lea de un json igual al del payload

@@ -15,7 +15,6 @@ func main() {
 	router.HandleFunc("/topsecret_split", topSecretSplitPostHandler).Methods("POST")
 	router.HandleFunc("/topsecret_split", topSecretHandler).Methods("GET")
 	log.Fatal(http.ListenAndServe(":3001", router))
-
 }
 
 func topSecretSplitPostHandler(w http.ResponseWriter, r *http.Request) {
