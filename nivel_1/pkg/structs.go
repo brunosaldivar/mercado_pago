@@ -4,8 +4,16 @@ import (
 	"strings"
 )
 
-// Point Estructura x,y
+const (
+	ParseError         = "Parser JSON error:"
+	FileOpenError      = "File open error:"
+	MessageReceived    = "Mensaje recibido:"
+	GetCoordinatesFail = "No se puede calcular coordenadas enemigas"
+	VerifyJSONError    = "Error en JSON, verificar archivo ./data/data.JSON"
+	EnemyCoordinates   = "Coordenadas enemigas:"
+)
 
+// Point Estructura x,y
 type Point struct {
 	X float32 `json:"x"`
 	Y float32 `json:"y"`

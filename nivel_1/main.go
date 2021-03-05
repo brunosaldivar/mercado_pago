@@ -31,6 +31,7 @@ func main() {
 	//data del json
 	s, err := getData()
 	if err != nil {
+		fmt.Println(VerifyJSONError)
 		os.Exit(0)
 	}
 	var distances []float32
@@ -64,11 +65,9 @@ func GetLocation(distances ...float32) (x, y float32) {
 		fmt.Println(GetCoordinatesFail, VerifyJSONError)
 		os.Exit(0)
 	}
-
 	for i := 0; i < len(satellitesJSON.Satellites); i++ {
 		satellitesJSON.Satellites[0].SetDistance(distances[i])
 	}
-
 	s1 := satellitesJSON.Satellites[0]
 	s2 := satellitesJSON.Satellites[1]
 	s3 := satellitesJSON.Satellites[2]
