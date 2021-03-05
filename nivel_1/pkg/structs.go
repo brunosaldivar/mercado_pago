@@ -20,6 +20,10 @@ type Satellite struct {
 	Y float32 `json:"y"`
 }
 
+type ResponseMain struct {
+	Position Point  `json:"position"`
+	Message  string `json:"message"`
+}
 type Satellites struct {
 	Satellites []Satellite `json:"satellites"`
 }

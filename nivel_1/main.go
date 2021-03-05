@@ -7,41 +7,22 @@ import (
 	"os"
 	"strings"
 
-	structs "github.com/brunosaldivar/mercado_pago/nivel_1/pkg"
+	. "github.com/brunosaldivar/mercado_pago/nivel_1/pkg"
 	math "github.com/chewxy/math32"
 )
 
-type ResponseMain struct {
-	Position Point  `json:"position"`
-	Message  string `json:"message"`
-}
+var satellitesJSON Satellites
 
-type Point struct {
-	X float32 `json:"x"`
-	Y float32 `json:"y"`
-}
+func getData() (Satellites, error) {
 
-type Satellite struct {
-	Name     string   `json:"name"`
-	Distance float32  `json:"distance"`
-	Message  []string `json:"message"`
-	//coordenadas del satelite, punto conocido
-	X float32 `json:"x"`
-	Y float32 `json:"y"`
-}
-
-var satellitesJSON structs.Satellites
-
-func getData() (structs.Satellites, error) {
-
-	satellitesJSON = structs.Satellites{}
+	satellitesJSON = Satellites{}
 	data, err := ioutil.ReadFile("./data/data.json")
 	if err != nil {
-		fmt.Println("File open error: ", err)
+		fmt.Println(FileOpenError, err)
 	}
 	err = json.Unmarshal(data, &satellitesJSON)
 	if err != nil {
-		fmt.Println("Parser JSON error:", err)
+		fmt.Println(ParseError, err)
 	}
 	return satellitesJSON, err
 }
@@ -70,8 +51,8 @@ func main() {
 		Position: Point{X: x, Y: y},
 		Message:  msg,
 	}
-	fmt.Println("Coordenadas enemigas: {X:", rtn.Position.X, " Y:", rtn.Position.Y, "}")
-	fmt.Println("Mensaje recibido:", rtn.Message)
+	fmt.Println(EnemyCoordinates, "{X:", rtn.Position.X, "Y:", rtn.Position.Y, "}")
+	fmt.Println(MessageReceived, rtn.Message)
 }
 
 // input: distancia al emisor tal cual se recibe en cada satélite
@@ -80,7 +61,7 @@ func GetLocation(distances ...float32) (x, y float32) {
 	var a, b, c, d, e, f float32
 	countData := len(satellitesJSON.Satellites)
 	if len(distances) != countData || countData != 3 {
-		fmt.Println("No se puede calcular coordenadas enemigas. Falta informacion, verificar json")
+		fmt.Println(GetCoordinatesFail, VerifyJSONError)
 		os.Exit(0)
 	}
 
