@@ -1,6 +1,7 @@
 package structs
 
 import (
+	"errors"
 	"strings"
 
 	math "github.com/chewxy/math32"
@@ -30,9 +31,13 @@ type ResponseTopSecret struct {
 	Message  string `json:"message"`
 }
 
-func (s *Satellites) CalculateCoordinates() (Point, error) {
+func (s *Satellites) CalculateCoordinates() (*Point, error) {
 
 	var a, b, c, d, e, f float32
+	var point = new(Point)
+	if len(s.Satellites) != 3 {
+		return nil, errors.New("Datos insuficientes, para obtener las coordenadas")
+	}
 	//seteo coordenadas
 	for i := 0; i < len(s.Satellites); i++ {
 		s.Satellites[i].SetPoint()
@@ -60,12 +65,19 @@ func (s *Satellites) CalculateCoordinates() (Point, error) {
 
 	x := detX / detS
 	y := detY / detS
-	//fmt.Println(Point{X: X, Y: Y})
-	return Point{X: x, Y: y}, nil
+
+	point.X = x
+	point.Y = y
+
+	return point, nil
 }
 
-func (s *Satellites) GetMessage() string {
+func (s *Satellites) GetMessage() (*string, error) {
 	var parts []string
+	//var rtn = new(string)
+	if len(s.Satellites) != 3 {
+		return nil, errors.New("Datos insuficientes, para obtener el mensaje")
+	}
 	for i := 0; i < len(s.Satellites); i++ {
 		for j := 0; j < len(s.Satellites[i].Message); j++ {
 			if strings.TrimSpace(s.Satellites[i].Message[j]) != "" {
@@ -73,7 +85,8 @@ func (s *Satellites) GetMessage() string {
 			}
 		}
 	}
-	return strings.Join(parts, " ")
+	rtn := strings.Join(parts, " ")
+	return &rtn, nil
 }
 func (s *Satellite) SetPoint() error {
 
