@@ -11,8 +11,5 @@ import (
 func main() {
 	router := mux.NewRouter()
 	router.HandleFunc("/topsecret", handlers.TopSecretPostHandler).Methods("POST")
-	router.HandleFunc("/topsecret_split", handlers.TopSecretSplitPostHandler).Methods("POST")
-	router.HandleFunc("/topsecret_split", handlers.TopSecretSplitGetHandler).Methods("GET")
 	log.Fatal(http.ListenAndServe(":3001", router))
-
 }
