@@ -8,7 +8,6 @@ import (
 )
 
 // Point Estructura x,y
-
 type Point struct {
 	X float32 `json:"x"`
 	Y float32 `json:"y"`
@@ -74,7 +73,7 @@ func (s *Satellites) CalculateCoordinates() (*Point, error) {
 
 func (s *Satellites) GetMessage() (*string, error) {
 	var parts []string
-	//var rtn = new(string)
+
 	if len(s.Satellites) != 3 {
 		return nil, errors.New("Datos insuficientes, para obtener el mensaje")
 	}
@@ -88,6 +87,8 @@ func (s *Satellites) GetMessage() (*string, error) {
 	rtn := strings.Join(parts, " ")
 	return &rtn, nil
 }
+
+//Setea coordenadas. Datos conocidos
 func (s *Satellite) SetPoint() error {
 
 	switch strings.ToLower(s.Name) {
@@ -105,7 +106,6 @@ func (s *Satellite) SetPoint() error {
 }
 
 func (s *Satellite) Set(satelite Satellite) {
-
 	s.Name = satelite.Name
 	s.Distance = satelite.Distance
 	s.Message = satelite.Message

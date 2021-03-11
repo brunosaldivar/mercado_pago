@@ -7,7 +7,8 @@ import (
 	"os"
 	"strings"
 
-	structs "github.com/brunosaldivar/mercado_pago/nivel_1/pkg"
+	structs "mercado_pago/nivel_1/pkg"
+
 	math "github.com/chewxy/math32"
 )
 

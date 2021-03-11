@@ -3,10 +3,10 @@ package handlers
 import (
 	"encoding/json"
 	"log"
+	helper "mercado_pago/pkg/helper"
+	. "mercado_pago/pkg/structs"
 	"net/http"
 
-	helper "github.com/brunosaldivar/mercado_pago/deployment/pkg/helper"
-	. "github.com/brunosaldivar/mercado_pago/deployment/pkg/structs"
 	"github.com/gorilla/mux"
 )
 

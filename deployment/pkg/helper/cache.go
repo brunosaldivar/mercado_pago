@@ -4,7 +4,8 @@ import (
 	"log"
 	"time"
 
-	. "github.com/brunosaldivar/mercado_pago/deployment/pkg/structs"
+	. "mercado_pago/pkg/structs"
+
 	"github.com/patrickmn/go-cache"
 )
 
