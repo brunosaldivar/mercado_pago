@@ -5,7 +5,7 @@ import (
 	"log"
 	"net/http"
 
-	. "github.com/brunosaldivar/mercado_pago/nivel_2/pkg/structs"
+	. "mercado_pago/nivel_2/pkg/structs"
 )
 
 func TopSecretPostHandler(w http.ResponseWriter, r *http.Request) {

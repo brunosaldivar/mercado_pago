@@ -1,29 +1,27 @@
 package helper
 
 import (
-	"log"
 	"time"
 
-	. "github.com/brunosaldivar/mercado_pago/nivel_3/pkg/structs"
+	. "mercado_pago/nivel_3/pkg/structs"
+
 	"github.com/patrickmn/go-cache"
 )
 
+//seteo cache por 24 hs
 var Cache = cache.New(24*time.Hour, 24*time.Hour)
 
+//Guarda en cache el satellite enviado por POST en caso de no existir
+//crea la cache con struct satellites
 func SetCache(satellite Satellite) *Satellites {
 
 	s, found := GetCache()
 	newSatellite := true
-	log.Println("SetCache() found:", found, s, satellite)
-
 	if found {
 		for i := 0; i < len(s.Satellites); i++ {
 
 			if s.Satellites[i].Name == satellite.Name {
-				//ver aca
-				log.Println("SetCache: ", satellite.Name)
 				s.Satellites[i].Set(satellite)
-				log.Println("vuelta: ", s.Satellites[i].Name)
 				newSatellite = false
 			}
 		}
@@ -45,21 +43,18 @@ func SetCache(satellite Satellite) *Satellites {
 	return &s
 }
 
-//aca tiene q estar la logica de que si existe el satellite reemplazarlo
-//y se guarda la lista completa o si va a buscarlo y lo reemplaza
-
+//Obtiene struct satelites cacheada. En caso de no encontrarla retorna found = false
 func GetCache() (Satellites, bool) {
 	var satellites Satellites
 	var found bool
 	data, found := Cache.Get("satellites")
 	if found {
 		satellites = data.(Satellites)
-		log.Println("GetCache()  ", satellites)
-
 	}
 	return satellites, found
 }
 
+//borra cache
 func Clear() {
 	Cache.Flush()
 }

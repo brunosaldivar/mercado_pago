@@ -1,4 +1,4 @@
-module github.com/brunosaldivar/mercado_pago/nivel_1
+module mercado_pago/nivel_1
 
 go 1.13
 

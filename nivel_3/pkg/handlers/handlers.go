@@ -5,8 +5,9 @@ import (
 	"log"
 	"net/http"
 
-	helper "github.com/brunosaldivar/mercado_pago/nivel_3/pkg/helper"
-	. "github.com/brunosaldivar/mercado_pago/nivel_3/pkg/structs"
+	helper "mercado_pago/nivel_3/pkg/helper"
+	. "mercado_pago/nivel_3/pkg/structs"
+
 	"github.com/gorilla/mux"
 )
 
@@ -21,11 +22,9 @@ func TopSecretPostHandler(w http.ResponseWriter, r *http.Request) {
 	message, _errMsg := satellites.GetMessage()
 
 	if err != nil {
-		log.Println("Error en payload", err)
 		w.WriteHeader(http.StatusNotFound)
 	}
 	if _errCalc != nil || _errMsg != nil {
-		log.Println(_errCalc, _errMsg)
 		w.WriteHeader(http.StatusNotFound)
 	} else {
 		var response = &ResponseTopSecret{
@@ -40,11 +39,10 @@ func TopSecretSplitGetHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json; charset=utf-8")
 	satellites, found := helper.GetCache()
 
-	log.Println("GetCache Top:", satellites)
 	if found {
 		location, _errCalc := satellites.CalculateCoordinates()
 		message, _errMsg := satellites.GetMessage()
-		log.Println(_errCalc, _errMsg)
+
 		if _errCalc != nil || _errMsg != nil {
 			log.Println(_errCalc, _errMsg)
 
@@ -64,7 +62,6 @@ func TopSecretSplitGetHandler(w http.ResponseWriter, r *http.Request) {
 func TopSecretSplitPostHandler(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json; charset=utf-8")
-	//var satellites Satellites
 	var satellite Satellite
 	vars := mux.Vars(r)
 	name := vars["satellite"]
